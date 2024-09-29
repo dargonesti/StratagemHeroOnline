@@ -562,3 +562,15 @@ function initaliseConfigPopupInputs() {
         }
     })
 }
+
+function showGameOverPopup(score, completedStrategems) {
+  ReactDOM.render(
+    <GameOverPopup 
+      score={score} 
+      completedStrategems={completedStrategems} 
+      onPlayAgain={() => window.location.reload()} 
+    />, 
+    document.getElementById('game-over-popup')
+  );
+  document.getElementById('game-over-popup').hidden = false;
+}
