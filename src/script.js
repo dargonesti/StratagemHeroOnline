@@ -262,10 +262,10 @@ function refreshStratagemDisplay(){
     for(let i in currentStratagemsList){
         // Show the stratagem's picture in the correct slot
         if (currentStratagemsList[i].image) {
-            document.getElementById(`stratagem-icon-${i}`).src = `../data/Images/Stratagem\ Icons/hd2/${currentStratagemsList[i].image}`;
+            document.getElementById(`stratagem-icon-${i}`).src = `../data/Images/Stratagem Icons/hd2/${currentStratagemsList[i].image}`;
         }
         else {
-            document.getElementById(`stratagem-icon-${i}`).src = `../data/Images/Stratagem\ Icons/hd2/placeholder.png`;
+            document.getElementById(`stratagem-icon-${i}`).src = `../data/Images/Stratagem Icons/hd2/placeholder.png`;
         }
     }
 
@@ -562,15 +562,17 @@ function initaliseConfigPopupInputs() {
         }
     })
 }
-
 function showGameOverPopup(score, completedStrategems) {
-  ReactDOM.render(
-    <GameOverPopup 
-      score={score} 
-      completedStrategems={completedStrategems} 
-      onPlayAgain={() => window.location.reload()} 
-    />, 
-    document.getElementById('game-over-popup')
-  );
-  document.getElementById('game-over-popup').hidden = false;
+  const gameOverPopupContainer = document.getElementById('game-over-popup');
+  if (gameOverPopupContainer) {
+    const root = ReactDOM.createRoot(gameOverPopupContainer);
+    root.render(
+      <GameOverPopup 
+        score={score} 
+        completedStrategems={completedStrategems} 
+        onPlayAgain={() => window.location.reload()} 
+      />
+    );
+    gameOverPopupContainer.hidden = false;
+  }
 }

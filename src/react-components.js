@@ -1,7 +1,7 @@
 // Logo component
 const Logo = () => (
   <div className="logo-container">
-    <img className="logo" src="./data/Images/Helldivers_2_logo.webp" alt="Helldivers 2 logo" />
+    <img className="logo" src="../data/Images/Helldivers_2_logo.webp" alt="Helldivers 2 logo" />
   </div>
 );
 
@@ -31,30 +31,33 @@ const GameOverPopup = ({ score, completedStrategems, onPlayAgain }) => (
   </div>
 );
 
-// Render components
+// Main App component
+const App = () => (
+  <React.Fragment>
+    <Logo />
+    <Title />
+    <GameArea />
+  </React.Fragment>
+);
+
+// Render components using createRoot
 const root = document.getElementById('root');
 if (root) {
-  ReactDOM.render(
-    <React.Fragment>
-      <Logo />
-      <Title />
-      <GameArea />
-    </React.Fragment>,
-    root
-  );
+  const reactRoot = ReactDOM.createRoot(root);
+  reactRoot.render(<App />);
 }
 
 // Function to update GameOverPopup
 window.showGameOverPopup = (score, completedStrategems) => {
   const gameOverPopupContainer = document.getElementById('game-over-popup');
   if (gameOverPopupContainer) {
-    ReactDOM.render(
+    const popupRoot = ReactDOM.createRoot(gameOverPopupContainer);
+    popupRoot.render(
       <GameOverPopup 
         score={score} 
         completedStrategems={completedStrategems} 
         onPlayAgain={() => window.location.reload()} 
-      />,
-      gameOverPopupContainer
+      />
     );
     gameOverPopupContainer.hidden = false;
   }
