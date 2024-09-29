@@ -529,21 +529,6 @@ function removeMainGameListener() {
     removeEventListener("keydown", mainGameKeyDownListener);
 }
 
-function toggleConfigPopup() {
-    let popupCurrentState = CONFIGPOPUP.classList.contains('active');
-
-    if (popupCurrentState == true) {
-        CONFIGPOPUP.classList.remove('active');
-        addMainGameListener();
-        removeConfigPopupListener();
-    } else {
-        CONFIGPOPUP.classList.add('active');
-        initaliseConfigPopupInputs();
-        removeMainGameListener();
-        addConfigPopupListener();
-        TEMPARROWKEYS = Object.assign({}, CONFIG.arrowKeys);
-    }
-}
 
 function getConfigPopupInputs() {
     return CONFIGPOPUP.querySelectorAll('input[name][type=text]');
