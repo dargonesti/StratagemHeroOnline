@@ -104,7 +104,7 @@ var TEMPARROWKEYS = {};
 const storedArrowKeysConfig = localStorage.getItem("CONFIG.arrowKeys") ? JSON.parse(localStorage.getItem("CONFIG.arrowKeys")) : false;
 const CONFIG = {};
 let configPopupEvents = [
-    ["input", configPopupInputListener],
+    ["input[type=text]", configPopupInputListener],
     ["keydown", configPopupKeydownListener]
   ];
   function addConfigPopupListener() {

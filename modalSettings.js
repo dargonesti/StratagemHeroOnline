@@ -33,6 +33,41 @@ function usePersistantState(key, initialValue) {
    return [state, setState];
 };
 
+const ArrowIcons = ({arrowList}) => {
+  return (
+    <table className="arrows-table">
+      <tbody>
+      <tr>
+      {arrowList.split("").map((arrow, index) => (
+        <td key={Math.random()}>
+            <img
+              className="arrow-incomplete-filter "
+              src={`data/Images/Arrows/${arrow.toUpperCase()} - Copy.png`}
+            />
+        </td>
+      ))}
+      </tr>
+      </tbody>
+    </table>
+  );
+};
+
+const StratagemToggle = ({name, sequence, image, on, toggleStratagem})=>{
+
+  return (
+    <div className="stratagem-toggle">
+      <img src={`data/Images/Stratagem Icons/hd2/${image}`} alt={name} className="stratagem-icon" />
+      <div className="stratagem-name">{name}</div>
+      <div className="stratagem-sequence"><ArrowIcons arrowList={sequence}/></div>
+      <div className="stratagem-toggle-switch">
+        <label className="switch">
+          <input type="checkbox" checked={on} onChange={()=>toggleStratagem(name)} />
+          <span className="slider round"></span>
+        </label>
+      </div>
+    </div>);
+};
+
 const SettingsModal = () => {  
   const [loadout, setLoadout] = usePersistantState("stratagemsLoadout", []);
   const [timescale, setTimescale] = usePersistantState("timescale", 1);
@@ -50,48 +85,28 @@ const SettingsModal = () => {
     toggleSettingsPopup();
   };
 
+  const toggleStratagem = (stratagemName) => {
+    let strat = stratagems.find(strat=>strat.name==stratagemName);
+    if(loadout.some(strat=>strat.name==stratagemName))
+    {
+      setLoadout(loadout.filter(strat=>strat.name!=stratagemName));
+    }else
+    {
+      setLoadout([...loadout, strat]);
+    }
+  };
+
   return (
       <div className="game-config-popup-container" id="game-settings-popup">
         <div className="game-config-popup">
           <p className="game-config-popup__title">Settings</p>
           <div className="game-config-popup__key-bindings">
-            <div className="key-bind-container key-bind-container--up">
-              <p>
-                <img
-                  className="arrow-image"
-                  src="data/Images/Arrows/U - Copy.png"
-                />
-              </p>
-              <input name="up" type="text" />
-            </div>
-            <div className="key-bind-container key-bind-container--left">
-              <p>
-                <img
-                  className="arrow-image"
-                  src="data/Images/Arrows/L - Copy.png"
-                />
-              </p>
-              <input name="left" type="text" />
-            </div>
-            <div className="key-bind-container key-bind-container--down">
-              <p>
-                <img
-                  className="arrow-image"
-                  src="data/Images/Arrows/D - Copy.png"
-                />
-              </p>
-              <input name="down" type="text" />
-            </div>
-            <div className="key-bind-container key-bind-container--right">
-              <p>
-                <img
-                  className="arrow-image"
-                  src="data/Images/Arrows/R - Copy.png"
-                />
-              </p>
-              <input name="right" type="text" />
-            </div>
+            {stratagems.map((stratagem) => (
+              <StratagemToggle key={stratagem.name} {...stratagem} 
+              on={loadout.some(strat=>strat.name==stratagem.name)} toggleStratagem={toggleStratagem} />
+            ))}
           </div>
+
           <div className="game-config-popup__action-buttons">
             <button
               role="button"
