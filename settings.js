@@ -1,12 +1,15 @@
 const SettingsModal = () => {
     const [isOpen, setIsOpen] = React.useState(false);
+    const [isKeybindingsOpen, setIsKeybindingsOpen] = React.useState(false);
     const [settings, setSettings] = React.useState({
       myName: localStorage.getItem('myName') || '',
       unwantedStratagems: JSON.parse(localStorage.getItem('unwantedStratagems')) || [],
     });
   
-    const handleOpen = () => setIsOpen(true);
-    const handleClose = () => setIsOpen(false);
+    const handleSettingsOpen = () => setIsOpen(true);
+    const handleSettingsClose = () => setIsOpen(false);
+    const handleKeybindingsOpen = () => setIsKeybindingsOpen(true);
+    const handleKeybindingsClose = () => setIsKeybindingsOpen(false);
   
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -29,7 +32,11 @@ const SettingsModal = () => {
   
     return (
       <div className="settings-container">
-        <button onClick={handleOpen} className="settings-button">Settings</button>
+        <div className="button-group">
+          <button onClick={handleKeybindingsOpen} className="settings-button button">Keybindings</button>
+          <button onClick={handleSettingsOpen} className="settings-button button">Settings</button>
+        </div>
+        
         {isOpen && (
           <div className="settings-modal">
             <div className="settings-content">
@@ -58,6 +65,18 @@ const SettingsModal = () => {
               <div className="settings-actions">
                 <button onClick={handleSave} className="save-button">Save</button>
                 <button onClick={handleClose} className="cancel-button">Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {isKeybindingsOpen && (
+          <div className="settings-modal">
+            <div className="settings-content">
+              <h2>Keybindings</h2>
+              {/* Add keybindings content here */}
+              <div className="settings-actions">
+                <button onClick={handleKeybindingsClose} className="cancel-button">Close</button>
               </div>
             </div>
           </div>
