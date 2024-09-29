@@ -1,20 +1,6 @@
-function toggleConfigPopup() {
-  let popupCurrentState = CONFIGPOPUP.classList.contains("active");
 
-  if (popupCurrentState == true) {
-    CONFIGPOPUP.classList.remove("active");
-    addMainGameListener();
-    removeConfigPopupListener();
-  } else {
-    CONFIGPOPUP.classList.add("active");
-    initaliseConfigPopupInputs();
-    removeMainGameListener();
-    addConfigPopupListener();
-    TEMPARROWKEYS = Object.assign({}, CONFIG.arrowKeys);
-  }
-}
 
-const SettingsModal = () => {
+const SettingsButtons = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [settings, setSettings] = React.useState({
     myName: localStorage.getItem("myName") || "",
@@ -51,71 +37,13 @@ const SettingsModal = () => {
 
   return (
     <div>
-      <div className="game-config-popup-container" id="game-config-popup">
-        <div className="game-config-popup">
-          <p className="game-config-popup__title">Change Keybindings</p>
-          <div className="game-config-popup__key-bindings">
-            <div className="key-bind-container key-bind-container--up">
-              <p>
-                <img
-                  className="arrow-image"
-                  src="data/Images/Arrows/U - Copy.png"
-                />
-              </p>
-              <input name="up" type="text" />
-            </div>
-            <div className="key-bind-container key-bind-container--left">
-              <p>
-                <img
-                  className="arrow-image"
-                  src="data/Images/Arrows/L - Copy.png"
-                />
-              </p>
-              <input name="left" type="text" />
-            </div>
-            <div className="key-bind-container key-bind-container--down">
-              <p>
-                <img
-                  className="arrow-image"
-                  src="data/Images/Arrows/D - Copy.png"
-                />
-              </p>
-              <input name="down" type="text" />
-            </div>
-            <div className="key-bind-container key-bind-container--right">
-              <p>
-                <img
-                  className="arrow-image"
-                  src="data/Images/Arrows/R - Copy.png"
-                />
-              </p>
-              <input name="right" type="text" />
-            </div>
-          </div>
-          <div className="game-config-popup__action-buttons">
-            <button
-              role="button"
-              data-action-type="game-config--save"
-              className="button save-button"
-            >
-              save
-            </button>
-            <button
-              role="button"
-              data-action-type="game-config--close"
-              className="button close-button"
-            >
-              close
-            </button>
-          </div>
-        </div>
-      </div>
-
+      <KeyBindingsModal />
+      <SettingsModal />
       <div className="info__config-actions-container">
         <button onClick={toggleConfigPopup} className="settings-button button">
           Bindings
         </button>
-        <button onClick={handleSettingsOpen} className="settings-button button">
+        <button onClick={toggleSettingsPopup} className="settings-button button">
           Settings
         </button>
       </div>
@@ -160,8 +88,8 @@ const SettingsModal = () => {
   );
 };
 
-// Render the SettingsModal component
-ReactDOM.render(<SettingsModal />, document.getElementById("react-settings"));
+ReactDOM.render(<SettingsButtons />, document.getElementById("react-settings"));
 console.log("SettingsModal rendered");
 
-CONFIGPOPUP = document.getElementById("game-config-popup");
+KEYBINDINGS_MODALE = document.getElementById("game-config-popup");
+SETTINGS_MODALE = document.getElementById("game-settings-popup");
