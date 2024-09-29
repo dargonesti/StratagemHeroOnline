@@ -562,3 +562,8 @@ function initaliseConfigPopupInputs() {
         }
     })
 }
+
+const myName = localStorage.getItem('myName');
+const unwantedStratagems = JSON.parse(localStorage.getItem('unwantedStratagems')) || [];
+
+// Use these values in your game logic as needed
