@@ -1,5 +1,7 @@
 // Load stratagem data
 var stratagems = undefined;
+var playingStratagems = [];
+var playingSpeed = 1;
 
 var xhr = new XMLHttpRequest();
 xhr.open(method='GET', url='./data/HD2-Sequences.json', async=false); // false indicates synchronous request
@@ -12,7 +14,11 @@ if (xhr.status === 200) {
 }
 
 stratagems = JSON.parse(stratagems);
-// console.log(stratagems);
+let storageStrats = JSON.parse(localStorage.getItem("stratagemsLoadout")) || [];
+if(storageStrats?.length > 0 )
+    playingStratagems = [...storageStrats];
+else
+    playingStratagems = [...stratagems];
 
 // Install keypress listener
 function mainGameKeyDownListener(event) {
@@ -72,6 +78,13 @@ function gamepadLoop() {
 
     requestAnimationFrame(gamepadLoop);
 }
+
+function groupBy(xs, key) {
+    return xs.reduce(function(rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  }
 
 // Load SFX
 var sfxDown = new Audio("./data/Sounds/1_D.mp3");
@@ -368,7 +381,7 @@ function refreshStratagemDisplay(){
 }
 
 function pickRandomStratagem(){
-    return stratagems[Math.floor(Math.random() * stratagems.length)];
+    return playingStratagems[Math.floor(Math.random() * playingStratagems.length)];
 }
 
 function showArrowSequence(arrowSequence, arrowsContainer){
@@ -498,12 +511,11 @@ async function countDown(){
     // Immediately Set timeout for next countdown step
     setTimeout(() => {
         countDown();
-        // console.log(timeRemaining)
     }, COUNTDOWN_STEP);
 
     // Apply countdown if it's not paused
     if(gameState != "hitlag" && gameState != "initial")
-        timeRemaining -= trueDeltaT;
+        timeRemaining -= trueDeltaT * playingSpeed;
     updateTimeBar();
 }
 

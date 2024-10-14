@@ -122,7 +122,7 @@
   {
     "name": "Quasar Canon LAS-99",
     "sequence": "DDULR",
-    "image": "quasar_canon.svg",
+    "image": "quasar_cannon.svg",
     "type": "Supply"
   },
   {
@@ -153,7 +153,7 @@
     "name": "Dark Fluid Vessel",
     "sequence": "ULRDUU",
     "image": "dark_fluid_vessel.svg",
-    "type": "Supply"
+    "type": "Mission"
   },
   {
     "name": "Emancipator Exosuit",
@@ -297,7 +297,7 @@
     "name": "Eagle Rearm",
     "sequence": "UULUR",
     "image": "eagle_rearm.svg",
-    "type": "Offensive"
+    "type": "Mission"
   },
   {
     "name": "Orbital Precision Strike",
@@ -369,7 +369,7 @@
     "name": "Arc Thrower",
     "sequence": "DRDULL",
     "image": "arc_thrower.svg",
-    "type": "Defensive"
+    "type": "Supply"
   },
   {
     "name": "Shield Generator Relay",
